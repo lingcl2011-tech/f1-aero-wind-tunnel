@@ -123,6 +123,18 @@ border:5px solid #788897;
 
 .cfdWheel.w1{left:18%}
 .cfdWheel.w2{right:18%}
+  .cfd .f1{
+position:absolute;
+left:-80%;
+top:20px;
+width:180%;
+height:28px;
+line-height:28px;
+background:transparent;
+border-radius:0;
+transform:none;
+box-shadow:none;
+  }
 @media(max-width:380px){h1{font-size:32px}}
 </style>
 </head>
@@ -348,6 +360,32 @@ $(id).oninput=calc;
 $("track").onchange=calc;
 
 calc();
+  updateCFD();
+
+$("speed").oninput=function(){
+calc();
+updateCFD();
+};
+
+$("fw").oninput=function(){
+calc();
+updateCFD();
+};
+
+$("rw").oninput=function(){
+calc();
+updateCFD();
+};
+
+$("rh").oninput=function(){
+calc();
+updateCFD();
+};
+
+$("drs").oninput=function(){
+calc();
+updateCFD();
+};
   let setupA=null;
 
 function currentSetup(){
@@ -420,6 +458,43 @@ $("compareText").innerHTML=
 (b.ld-setupA.ld).toFixed(2);
 
 }
+  function updateCFD(){
+
+let s=+$("speed").value;
+let fw=+$("fw").value;
+let rw=+$("rw").value;
+let rh=+$("rh").value;
+let drs=+$("drs").value;
+
+let n=(s-80)/280;
+
+let fast=2.8-n*2.1;
+
+let flows=document.querySelectorAll(".cfdFlow");
+
+flows.forEach(function(x,i){
+
+x.style.animationDuration=
+Math.max(.45,fast+i*.12)+"s";
+
+});
+
+let glow=
+Math.round(
+8+(fw+rw)*1.5+(drs?25:0)
+);
+
+$("cfd").style.boxShadow=
+"0 0 "+glow+"px #42d9ee55";
+
+let ground=
+Math.max(0,45-rh);
+
+$("cfd").style.filter=
+"brightness("+
+(1+ground*.006)+")";
+
+  }
 </script>
 
 </body>
