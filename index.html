@@ -3,103 +3,131 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>F1 Aero Lab 2.0</title>
+<title>F1 Aero Lab 2.1</title>
 
 <style>
 *{box-sizing:border-box}
+html,body{margin:0;padding:0}
 body{
-margin:0;
 background:#06111d;
-color:white;
-font-family:Arial,sans-serif
+color:#fff;
+font-family:Arial,sans-serif;
 }
 main{
-max-width:900px;
+width:100%;
+max-width:700px;
 margin:auto;
-padding:20px 15px 50px
+padding:15px;
 }
-header{text-align:center;padding:20px}
-h1{color:#42d9ee;font-size:42px;margin:0}
-.sub{letter-spacing:3px;margin-top:8px}
+header{
+text-align:center;
+padding:15px 5px 20px;
+}
+h1{
+margin:0;
+font-size:38px;
+color:#42d9ee;
+}
+.sub{
+margin-top:8px;
+font-size:13px;
+letter-spacing:2px;
+}
 .card{
 background:#102235;
 border:1px solid #29445c;
-border-radius:18px;
-padding:20px;
-margin-top:15px
+border-radius:16px;
+padding:18px;
+margin-bottom:15px;
 }
-.control{margin:18px 0}
+h2{
+margin:0 0 18px;
+font-size:22px;
+}
+.control{
+margin-bottom:20px;
+}
 .row{
 display:flex;
 justify-content:space-between;
-margin-bottom:7px
+align-items:center;
+margin-bottom:8px;
 }
-.value{
+.v{
 color:#42d9ee;
-font-weight:bold
+font-weight:bold;
 }
-input,select,button{width:100%}
-input{accent-color:#42d9ee}
+input[type=range]{
+width:100%;
+accent-color:#42d9ee;
+height:28px;
+}
 select,button{
-padding:12px;
+width:100%;
+padding:13px;
 border-radius:10px;
+border:1px solid #29445c;
 background:#071521;
-color:white;
-border:1px solid #29445c
+color:#fff;
+font-size:16px;
 }
 button{
 background:#42d9ee;
 color:#06111d;
 font-weight:bold;
 border:0;
-margin-top:8px
 }
 .stats{
 display:grid;
 grid-template-columns:repeat(3,1fr);
-gap:8px
+gap:8px;
 }
 .stat{
-background:#081725;
+background:#071521;
 border:1px solid #29445c;
-border-radius:12px;
-padding:12px;
+border-radius:10px;
+padding:12px 4px;
 text-align:center;
-font-size:12px
+font-size:11px;
 }
 .stat b{
 display:block;
 color:#42d9ee;
-font-size:21px;
-margin-top:5px
+font-size:19px;
+margin-top:6px;
 }
 .car{
-height:210px;
 margin-top:15px;
-border-radius:14px;
+height:170px;
 background:#071521;
-display:flex;
-align-items:center;
-overflow:hidden
+border-radius:12px;
+overflow:hidden;
 }
-.car svg{width:100%}
+.car svg{
+width:100%;
+height:100%;
+}
 .flow{
+fill:none;
 stroke:#42d9ee;
 stroke-width:3;
 stroke-dasharray:10 12;
-animation:move 1s linear infinite
+animation:a 1s linear infinite;
 }
-@keyframes move{
+@keyframes a{
 to{stroke-dashoffset:-44}
 }
 .note{
+color:#91a6b8;
 font-size:12px;
-color:#9db0c1;
-margin-top:12px
+line-height:1.5;
+margin-top:12px;
 }
-@media(max-width:600px){
-h1{font-size:36px}
-.stats{grid-template-columns:repeat(3,1fr)}
+@media(max-width:380px){
+h1{font-size:32px}
+.card{padding:15px}
+.stats{gap:5px}
+.stat b{font-size:17px}
 }
 </style>
 </head>
@@ -110,17 +138,17 @@ h1{font-size:36px}
 
 <header>
 <h1>🏎️ F1 Aero Lab</h1>
-<div class="sub">WIND TUNNEL · VERSION 2.0</div>
+<div class="sub">WIND TUNNEL · VERSION 2.1</div>
 </header>
 
-<section class="card">
+<div class="card">
 
 <h2>⚙️ 风洞参数</h2>
 
 <div class="control">
 <div class="row">
 <span>Air Speed</span>
-<span class="value" id="sv">250 km/h</span>
+<span class="v" id="sv">250 km/h</span>
 </div>
 <input id="speed" type="range" min="80" max="360" value="250">
 </div>
@@ -128,4 +156,37 @@ h1{font-size:36px}
 <div class="control">
 <div class="row">
 <span>Front Wing</span>
-<span class="value" id="fwv">8°</
+<span class="v" id="fwv">8°</span>
+</div>
+<input id="fw" type="range" min="0" max="15" value="8">
+</div>
+
+<div class="control">
+<div class="row">
+<span>Rear Wing</span>
+<span class="v" id="rwv">10°</span>
+</div>
+<input id="rw" type="range" min="0" max="18" value="10">
+</div>
+
+<div class="control">
+<div class="row">
+<span>Ride Height</span>
+<span class="v" id="rhv">35 mm</span>
+</div>
+<input id="rh" type="range" min="20" max="60" value="35">
+</div>
+
+<div class="control">
+<div class="row">
+<span>DRS</span>
+<span class="v" id="dv">OFF</span>
+</div>
+<input id="drs" type="range" min="0" max="1" value="0">
+</div>
+
+<div class="control">
+<select id="track">
+<option value="1">Balanced</option>
+<option value=".82">Monza</option>
+<option value="1.
