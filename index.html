@@ -124,6 +124,46 @@ button:active{transform:scale(.98)}
 </div>
 </section>
 
+<section class="card">
+
+<h2>🆚 A / B Setup</h2>
+
+<div class="stats">
+
+<div class="stat">
+SETUP A
+<b id="aDF">2840 N</b>
+</div>
+
+<div class="stat">
+SETUP B
+<b id="bDF">2840 N</b>
+</div>
+
+<div class="stat">
+DF Δ
+<b id="dfDiff">0 N</b>
+</div>
+
+</div>
+
+<br>
+
+<button onclick="saveA()">
+💾 保存当前为 Setup A
+</button>
+
+<br><br>
+
+<button onclick="compare()">
+🆚 Compare Setup
+</button>
+
+<div class="note" id="compareText">
+先保存 Setup A，然后改变赛车参数，再进行比较。
+</div>
+
+</section>
 </main>
 
 <script>
@@ -193,6 +233,78 @@ $(id).oninput=calc;
 $("track").onchange=calc;
 
 calc();
+  let setupA=null;
+
+function currentSetup(){
+
+let s=+$("speed").value;
+let fw=+$("fw").value;
+let rw=+$("rw").value;
+let rh=+$("rh").value;
+let drs=+$("drs").value;
+let tf=+$("track").value;
+
+let wing=1+(fw-8)*.035+(rw-10)*.045;
+let ground=1+(45-rh)*.012;
+
+let df=2840*(s/250)**2*tf*wing*ground;
+
+let drag=1120*(s/250)**2*tf*
+(1+(fw-8)*.022+(rw-10)*.035)*
+(drs?.78:1);
+
+return{
+df:df,
+drag:drag,
+ld:df/drag
+};
+
+}
+
+function saveA(){
+
+setupA=currentSetup();
+
+$("aDF").textContent=
+Math.round(setupA.df)+" N";
+
+$("compareText").textContent=
+"✅ Setup A 已保存。调整参数后点击 Compare Setup。";
+
+}
+
+function compare(){
+
+if(!setupA){
+
+$("compareText").textContent=
+"⚠️ 请先保存 Setup A。";
+
+return;
+
+}
+
+let b=currentSetup();
+
+$("bDF").textContent=
+Math.round(b.df)+" N";
+
+let dfDiff=b.df-setupA.df;
+let dragDiff=b.drag-setupA.drag;
+
+$("dfDiff").textContent=
+(dfDiff>=0?"+":"")+Math.round(dfDiff)+" N";
+
+$("compareText").innerHTML=
+"Setup B 相比 Setup A："+
+"<br>Downforce "+
+(dfDiff>=0?"+":"")+Math.round(dfDiff)+" N"+
+"<br>Drag "+
+(dragDiff>=0?"+":"")+Math.round(dragDiff)+" N"+
+"<br>L/D "+
+(b.ld-setupA.ld).toFixed(2);
+
+}
 </script>
 
 </body>
