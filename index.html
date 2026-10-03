@@ -220,4 +220,708 @@ canvas{
 <!-- LEFT -->
 <section class="card">
 
-<h2>⚙️
+<h2>⚙️ 风洞参数</h2>
+
+<div class="control">
+<div class="row">
+<span>Air Speed</span>
+<span class="value" id="speedValue">250 km/h</span>
+</div>
+
+<input
+id="speed"
+type="range"
+min="80"
+max="360"
+value="250">
+</div>
+
+
+<div class="control">
+<div class="row">
+<span>Front Wing</span>
+<span class="value" id="frontWingValue">8°</span>
+</div>
+
+<input
+id="frontWing"
+type="range"
+min="0"
+max="15"
+value="8">
+</div>
+
+
+<div class="control">
+<div class="row">
+<span>Rear Wing</span>
+<span class="value" id="rearWingValue">10°</span>
+</div>
+
+<input
+id="rearWing"
+type="range"
+min="0"
+max="18"
+value="10">
+</div>
+
+
+<div class="control">
+<div class="row">
+<span>Ride Height</span>
+<span class="value" id="rideValue">35 mm</span>
+</div>
+
+<input
+id="ride"
+type="range"
+min="20"
+max="60"
+value="35">
+</div>
+
+
+<div class="control">
+<div class="row">
+<span>DRS</span>
+<span class="value" id="drsValue">OFF</span>
+</div>
+
+<input
+id="drs"
+type="range"
+min="0"
+max="1"
+value="0">
+</div>
+
+
+<div class="control">
+
+<div class="row">
+<span>Track</span>
+</div>
+
+<select id="track">
+
+<option value="balanced">
+Balanced
+</option>
+
+<option value="monza">
+Monza
+</option>
+
+<option value="monaco">
+Monaco
+</option>
+
+<option value="silverstone">
+Silverstone
+</option>
+
+<option value="singapore">
+Singapore
+</option>
+
+</select>
+
+</div>
+
+
+<button id="testButton">
+▶ 开始风洞测试
+</button>
+
+<div class="status" id="status">
+READY
+</div>
+
+<div class="note">
+这是交互式空气动力学概念模型。
+真实 F1 CFD 与风洞测试需要真实车辆数据、网格、
+边界条件以及实验设备。
+</div>
+
+</section>
+
+
+<!-- RIGHT -->
+<section class="card">
+
+<h2>🌬️ Aero Results</h2>
+
+
+<div class="stats">
+
+<div class="stat">
+DOWNFORCE
+<strong id="downforce">2840 N</strong>
+</div>
+
+<div class="stat">
+DRAG
+<strong id="drag">1120 N</strong>
+</div>
+
+<div class="stat">
+L / D
+<strong id="ld">2.54</strong>
+</div>
+
+</div>
+
+
+<br>
+
+
+<div class="stats">
+
+<div class="stat">
+FRONT
+<strong id="frontBalance">46%</strong>
+</div>
+
+<div class="stat">
+REAR
+<strong id="rearBalance">54%</strong>
+</div>
+
+<div class="stat">
+GROUND
+<strong id="groundEffect">72%</strong>
+</div>
+
+</div>
+
+
+<!-- CAR -->
+<div class="car">
+
+<svg viewBox="0 0 900 320">
+
+<!-- airflow -->
+
+<g class="flow">
+
+<path d="M20 75 C220 45 420 60 880 65"/>
+<path d="M20 105 C200 80 450 90 880 95"/>
+<path d="M20 135 C220 120 460 125 880 130"/>
+<path d="M20 165 C200 150 470 155 880 160"/>
+
+<path d="M60 245 C250 275 550 270 850 225"/>
+
+</g>
+
+
+<!-- F1 -->
+
+<g transform="translate(80,35)">
+
+<!-- body -->
+
+<path
+d="M70 190
+L160 185
+L220 125
+L390 110
+L470 145
+L610 160
+L690 185
+L760 190
+L760 207
+L55 207
+Z"
+fill="#d9233b"/>
+
+
+<!-- cockpit -->
+
+<path
+d="M210 124
+L255 80
+L340 80
+L390 110
+Z"
+fill="#263a4b"/>
+
+
+<!-- front wing -->
+
+<path
+d="M160 185
+L75 174
+L25 187
+L25 202
+L175 202
+Z"
+fill="#101820"/>
+
+
+<!-- rear wing -->
+
+<path
+d="M610 160
+L700 150
+L790 174
+L790 190
+L680 188
+Z"
+fill="#101820"/>
+
+
+<!-- rear wing highlight -->
+
+<path
+d="M690 145
+L815 145
+L835 155
+L825 170
+L690 165
+Z"
+fill="#ff4053"/>
+
+
+<!-- wheels -->
+
+<circle
+cx="185"
+cy="208"
+r="42"
+fill="#080d12"
+stroke="#788897"
+stroke-width="7"/>
+
+<circle
+cx="185"
+cy="208"
+r="17"
+fill="#273746"/>
+
+
+<circle
+cx="640"
+cy="208"
+r="42"
+fill="#080d12"
+stroke="#788897"
+stroke-width="7"/>
+
+<circle
+cx="640"
+cy="208"
+r="17"
+fill="#273746"/>
+
+
+<!-- floor -->
+
+<path
+d="M70 218
+L720 218
+L760 225
+L90 225
+Z"
+fill="#263746"/>
+
+
+<!-- front wing -->
+
+<path
+d="M75 178
+L5 168
+L0 180
+L75 188
+Z"
+fill="#42d9ee"/>
+
+</g>
+
+</svg>
+
+</div>
+
+
+<!-- CHART -->
+
+<canvas
+id="chart"
+width="900"
+height="220">
+</canvas>
+
+<div class="note">
+实时显示 Downforce 与 Drag 随测试参数变化的趋势。
+</div>
+
+</section>
+
+</div>
+
+</div>
+
+
+<script>
+
+const speed =
+document.getElementById("speed");
+
+const frontWing =
+document.getElementById("frontWing");
+
+const rearWing =
+document.getElementById("rearWing");
+
+const ride =
+document.getElementById("ride");
+
+const drs =
+document.getElementById("drs");
+
+const track =
+document.getElementById("track");
+
+
+const speedValue =
+document.getElementById("speedValue");
+
+const frontWingValue =
+document.getElementById("frontWingValue");
+
+const rearWingValue =
+document.getElementById("rearWingValue");
+
+const rideValue =
+document.getElementById("rideValue");
+
+const drsValue =
+document.getElementById("drsValue");
+
+
+const downforce =
+document.getElementById("downforce");
+
+const drag =
+document.getElementById("drag");
+
+const ld =
+document.getElementById("ld");
+
+const frontBalance =
+document.getElementById("frontBalance");
+
+const rearBalance =
+document.getElementById("rearBalance");
+
+const groundEffect =
+document.getElementById("groundEffect");
+
+const status =
+document.getElementById("status");
+
+
+const canvas =
+document.getElementById("chart");
+
+const ctx =
+canvas.getContext("2d");
+
+
+let history=[];
+
+
+function calculate(){
+
+const s =
+Number(speed.value);
+
+const fw =
+Number(frontWing.value);
+
+const rw =
+Number(rearWing.value);
+
+const rh =
+Number(ride.value);
+
+const d =
+Number(drs.value);
+
+
+let trackFactor=1;
+
+if(track.value==="monza"){
+trackFactor=.82;
+}
+
+if(track.value==="monaco"){
+trackFactor=1.18;
+}
+
+if(track.value==="silverstone"){
+trackFactor=1.03;
+}
+
+if(track.value==="singapore"){
+trackFactor=1.12;
+}
+
+
+const wingFactor =
+1
++(fw-8)*0.035
++(rw-10)*0.045;
+
+
+const groundFactor =
+1+(45-rh)*0.012;
+
+
+const df =
+2840
+*Math.pow(s/250,2)
+*trackFactor
+*wingFactor
+*groundFactor;
+
+
+const drag =
+1120
+*Math.pow(s/250,2)
+*trackFactor
+*(1+(fw-8)*0.022+(rw-10)*0.035)
+*(d ? .78 : 1);
+
+
+const balance =
+Math.max(
+20,
+Math.min(
+80,
+46+(fw-8)*1.5-(rw-10)*.45
+)
+);
+
+
+const ground =
+Math.max(
+35,
+Math.min(
+95,
+72+(45-rh)*1.2
+)
+);
+
+
+speedValue.textContent =
+s+" km/h";
+
+frontWingValue.textContent =
+fw+"°";
+
+rearWingValue.textContent =
+rw+"°";
+
+rideValue.textContent =
+rh+" mm";
+
+drsValue.textContent =
+d ? "ON" : "OFF";
+
+
+downforce.textContent =
+Math.round(df)+" N";
+
+drag.textContent =
+Math.round(drag)+" N";
+
+ld.textContent =
+(df/drag).toFixed(2);
+
+frontBalance.textContent =
+Math.round(balance)+"%";
+
+rearBalance.textContent =
+Math.round(100-balance)+"%";
+
+groundEffect.textContent =
+Math.round(ground)+"%";
+
+
+history.push({
+speed:s,
+df:df,
+drag:drag
+});
+
+
+if(history.length>60){
+history.shift();
+}
+
+drawChart();
+
+}
+
+
+function drawChart(){
+
+ctx.clearRect(
+0,
+0,
+canvas.width,
+canvas.height
+);
+
+
+ctx.strokeStyle="#24445d";
+
+ctx.lineWidth=1;
+
+
+for(let i=1;i<5;i++){
+
+ctx.beginPath();
+
+ctx.moveTo(
+0,
+i*canvas.height/5
+);
+
+ctx.lineTo(
+canvas.width,
+i*canvas.height/5
+);
+
+ctx.stroke();
+
+}
+
+
+if(history.length<2){
+return;
+}
+
+
+let max=1;
+
+history.forEach(p=>{
+
+max=Math.max(
+max,
+p.df,
+p.drag*2
+);
+
+});
+
+
+drawLine(
+"#42d9ee",
+"df",
+max
+);
+
+drawLine(
+"#ff4053",
+"drag",
+max
+);
+
+}
+
+
+function drawLine(
+color,
+key,
+max
+){
+
+ctx.strokeStyle=color;
+
+ctx.lineWidth=3;
+
+ctx.beginPath();
+
+
+history.forEach(
+(p,i)=>{
+
+const x =
+i*canvas.width/
+(history.length-1);
+
+const y =
+canvas.height
+-(p[key]/max)
+*canvas.height*.85
+-10;
+
+
+if(i===0){
+
+ctx.moveTo(x,y);
+
+}else{
+
+ctx.lineTo(x,y);
+
+}
+
+});
+
+
+ctx.stroke();
+
+}
+
+
+document
+.querySelectorAll("input")
+.forEach(input=>{
+
+input.addEventListener(
+"input",
+calculate
+);
+
+});
+
+
+track.addEventListener(
+"change",
+calculate
+);
+
+
+document
+.getElementById("testButton")
+.addEventListener(
+"click",
+()=>{
+
+history=[];
+
+status.textContent=
+"TESTING · WIND TUNNEL RUNNING";
+
+calculate();
+
+setTimeout(
+()=>{
+status.textContent=
+"TEST COMPLETE";
+},
+700
+);
+
+});
+
+
+calculate();
+
+</script>
+
+</body>
+</html>
