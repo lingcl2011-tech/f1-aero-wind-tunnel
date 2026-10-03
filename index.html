@@ -3,190 +3,197 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>F1 Aero Lab 2.1</title>
-
+<title>F1 Aero Lab 2.2</title>
 <style>
 *{box-sizing:border-box}
-html,body{margin:0;padding:0}
-body{
-background:#06111d;
-color:#fff;
-font-family:Arial,sans-serif;
-}
-main{
-width:100%;
-max-width:700px;
-margin:auto;
-padding:15px;
-}
-header{
-text-align:center;
-padding:15px 5px 20px;
-}
-h1{
-margin:0;
-font-size:38px;
-color:#42d9ee;
-}
-.sub{
-margin-top:8px;
-font-size:13px;
-letter-spacing:2px;
-}
-.card{
-background:#102235;
-border:1px solid #29445c;
-border-radius:16px;
-padding:18px;
-margin-bottom:15px;
-}
-h2{
-margin:0 0 18px;
-font-size:22px;
-}
-.control{
-margin-bottom:20px;
-}
-.row{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:8px;
-}
-.v{
-color:#42d9ee;
-font-weight:bold;
-}
-input[type=range]{
-width:100%;
-accent-color:#42d9ee;
-height:28px;
-}
-select,button{
-width:100%;
-padding:13px;
-border-radius:10px;
-border:1px solid #29445c;
-background:#071521;
-color:#fff;
-font-size:16px;
-}
-button{
-background:#42d9ee;
-color:#06111d;
-font-weight:bold;
-border:0;
-}
-.stats{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:8px;
-}
-.stat{
-background:#071521;
-border:1px solid #29445c;
-border-radius:10px;
-padding:12px 4px;
-text-align:center;
-font-size:11px;
-}
-.stat b{
-display:block;
-color:#42d9ee;
-font-size:19px;
-margin-top:6px;
-}
-.car{
-margin-top:15px;
-height:170px;
-background:#071521;
-border-radius:12px;
-overflow:hidden;
-}
-.car svg{
-width:100%;
-height:100%;
-}
-.flow{
-fill:none;
-stroke:#42d9ee;
-stroke-width:3;
-stroke-dasharray:10 12;
-animation:a 1s linear infinite;
-}
-@keyframes a{
-to{stroke-dashoffset:-44}
-}
-.note{
-color:#91a6b8;
-font-size:12px;
-line-height:1.5;
-margin-top:12px;
-}
-@media(max-width:380px){
-h1{font-size:32px}
-.card{padding:15px}
-.stats{gap:5px}
-.stat b{font-size:17px}
-}
+body{margin:0;background:#06111d;color:#fff;font-family:Arial,sans-serif}
+main{max-width:700px;margin:auto;padding:15px}
+header{text-align:center;padding:15px 5px 20px}
+h1{margin:0;color:#42d9ee;font-size:38px}
+.sub{margin-top:8px;letter-spacing:2px}
+.card{background:#102235;border:1px solid #29445c;border-radius:16px;padding:18px;margin-bottom:15px}
+h2{margin:0 0 18px}
+.control{margin-bottom:18px}
+.row{display:flex;justify-content:space-between;margin-bottom:7px}
+.v{color:#42d9ee;font-weight:bold}
+input[type=range]{width:100%;accent-color:#42d9ee;height:28px}
+select,button{width:100%;padding:13px;border-radius:10px;border:1px solid #29445c;background:#071521;color:#fff;font-size:16px}
+button{background:#42d9ee;color:#06111d;font-weight:bold;border:0}
+button:active{transform:scale(.98)}
+.status{text-align:center;margin:12px 0;color:#42d9ee;font-weight:bold}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.stat{background:#071521;border:1px solid #29445c;border-radius:10px;padding:12px 4px;text-align:center;font-size:11px}
+.stat b{display:block;color:#42d9ee;font-size:19px;margin-top:6px}
+.tunnel{height:190px;margin-top:15px;background:#050f18;border-radius:12px;position:relative;overflow:hidden}
+.flow{position:absolute;width:140%;height:2px;background:#42d9ee;left:-140%;box-shadow:0 0 8px #42d9ee;opacity:.8}
+.run .flow{animation:wind .7s linear infinite}
+.f1{position:absolute;left:20%;top:70px;width:60%;height:55px;background:#d9233b;border-radius:60% 20% 20% 30%;transform:skewX(-12deg)}
+.f1:before{content:"";position:absolute;left:30%;top:-25px;width:18%;height:30px;background:#263746}
+.wheel{position:absolute;bottom:-15px;width:45px;height:45px;border-radius:50%;background:#05080b;border:6px solid #788897}
+.w1{left:25%}.w2{right:22%}
+.note{color:#91a6b8;font-size:12px;line-height:1.5;margin-top:12px}
+@keyframes wind{to{left:100%}}
+@media(max-width:380px){h1{font-size:32px}}
 </style>
 </head>
 
 <body>
-
 <main>
 
 <header>
 <h1>🏎️ F1 Aero Lab</h1>
-<div class="sub">WIND TUNNEL · VERSION 2.1</div>
+<div class="sub">WIND TUNNEL · VERSION 2.2</div>
 </header>
 
-<div class="card">
-
+<section class="card">
 <h2>⚙️ 风洞参数</h2>
 
 <div class="control">
-<div class="row">
-<span>Air Speed</span>
-<span class="v" id="sv">250 km/h</span>
-</div>
+<div class="row"><span>Air Speed</span><span class="v" id="sv">250 km/h</span></div>
 <input id="speed" type="range" min="80" max="360" value="250">
 </div>
 
 <div class="control">
-<div class="row">
-<span>Front Wing</span>
-<span class="v" id="fwv">8°</span>
-</div>
+<div class="row"><span>Front Wing</span><span class="v" id="fwv">8°</span></div>
 <input id="fw" type="range" min="0" max="15" value="8">
 </div>
 
 <div class="control">
-<div class="row">
-<span>Rear Wing</span>
-<span class="v" id="rwv">10°</span>
-</div>
+<div class="row"><span>Rear Wing</span><span class="v" id="rwv">10°</span></div>
 <input id="rw" type="range" min="0" max="18" value="10">
 </div>
 
 <div class="control">
-<div class="row">
-<span>Ride Height</span>
-<span class="v" id="rhv">35 mm</span>
-</div>
+<div class="row"><span>Ride Height</span><span class="v" id="rhv">35 mm</span></div>
 <input id="rh" type="range" min="20" max="60" value="35">
 </div>
 
 <div class="control">
-<div class="row">
-<span>DRS</span>
-<span class="v" id="dv">OFF</span>
-</div>
+<div class="row"><span>DRS</span><span class="v" id="dv">OFF</span></div>
 <input id="drs" type="range" min="0" max="1" value="0">
 </div>
 
-<div class="control">
 <select id="track">
 <option value="1">Balanced</option>
 <option value=".82">Monza</option>
-<option value="1.
+<option value="1.18">Monaco</option>
+<option value="1.03">Silverstone</option>
+<option value="1.12">Singapore</option>
+</select>
+
+<br><br>
+<button onclick="test()">▶ 开始风洞测试</button>
+<div class="status" id="status">READY</div>
+</section>
+
+<section class="card">
+<h2>🌬️ Wind Tunnel</h2>
+
+<div class="tunnel" id="tunnel">
+<div class="flow" style="top:25%"></div>
+<div class="flow" style="top:40%;animation-delay:.15s"></div>
+<div class="flow" style="top:55%;animation-delay:.3s"></div>
+<div class="flow" style="top:70%;animation-delay:.45s"></div>
+
+<div class="f1"></div>
+<div class="wheel w1"></div>
+<div class="wheel w2"></div>
+</div>
+
+<div class="note">
+气流动画速度会根据风速变化。
+这是可视化模拟，并非真实 CFD 求解器。
+</div>
+</section>
+
+<section class="card">
+<h2>📊 Aero Results</h2>
+
+<div class="stats">
+<div class="stat">DOWNFORCE<b id="df">2840 N</b></div>
+<div class="stat">DRAG<b id="drag">1120 N</b></div>
+<div class="stat">L / D<b id="ld">2.54</b></div>
+</div>
+
+<br>
+
+<div class="stats">
+<div class="stat">FRONT<b id="front">46%</b></div>
+<div class="stat">REAR<b id="rear">54%</b></div>
+<div class="stat">GROUND<b id="ge">72%</b></div>
+</div>
+</section>
+
+</main>
+
+<script>
+function $(x){return document.getElementById(x)}
+
+function calc(){
+
+let s=+$("speed").value;
+let fw=+$("fw").value;
+let rw=+$("rw").value;
+let rh=+$("rh").value;
+let drs=+$("drs").value;
+let tf=+$("track").value;
+
+let wing=1+(fw-8)*.035+(rw-10)*.045;
+let ground=1+(45-rh)*.012;
+
+let df=2840*(s/250)**2*tf*wing*ground;
+
+let drag=1120*(s/250)**2*tf*
+(1+(fw-8)*.022+(rw-10)*.035)*
+(drs?.78:1);
+
+let bal=46+(fw-8)*1.5-(rw-10)*.45;
+bal=Math.max(20,Math.min(80,bal));
+
+let ge=72+(45-rh)*1.2;
+ge=Math.max(35,Math.min(95,ge));
+
+$("sv").textContent=s+" km/h";
+$("fwv").textContent=fw+"°";
+$("rwv").textContent=rw+"°";
+$("rhv").textContent=rh+" mm";
+$("dv").textContent=drs?"ON":"OFF";
+
+$("df").textContent=Math.round(df)+" N";
+$("drag").textContent=Math.round(drag)+" N";
+$("ld").textContent=(df/drag).toFixed(2);
+$("front").textContent=Math.round(bal)+"%";
+$("rear").textContent=Math.round(100-bal)+"%";
+$("ge").textContent=Math.round(ge)+"%";
+
+$("tunnel").style.setProperty(
+"--speed",
+s
+);
+
+}
+
+function test(){
+
+$("status").textContent="🌬️ TESTING · WIND TUNNEL RUNNING";
+$("tunnel").classList.add("run");
+
+calc();
+
+setTimeout(function(){
+$("status").textContent="✅ TEST COMPLETE";
+},2500);
+
+}
+
+["speed","fw","rw","rh","drs"].forEach(function(id){
+$(id).oninput=calc;
+});
+
+$("track").onchange=calc;
+
+calc();
+</script>
+
+</body>
+</html>
