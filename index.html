@@ -1,1 +1,96 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>F1 Aero Lab</title>
+<style>
+body{
+  margin:0;
+  background:#07111d;
+  color:white;
+  font-family:Arial,sans-serif;
+  text-align:center;
+}
+.box{
+  max-width:700px;
+  margin:40px auto;
+  padding:30px;
+}
+h1{color:#45d9ee}
+.card{
+  background:#122235;
+  border:1px solid #29425b;
+  border-radius:15px;
+  padding:25px;
+  margin-top:20px;
+}
+input{width:90%;accent-color:#45d9ee}
+.value{
+  font-size:32px;
+  color:#45d9ee;
+  margin:20px;
+}
+</style>
+</head>
 
+<body>
+<div class="box">
+
+<h1>🏎️ F1 Aero Lab</h1>
+<p>WIND TUNNEL · v1.0</p>
+
+<div class="card">
+
+<h2>风洞测试</h2>
+
+<div class="value">
+<span id="speed">250</span> km/h
+</div>
+
+<input
+type="range"
+min="80"
+max="350"
+value="250"
+id="slider">
+
+<h3>DOWNFORCE</h3>
+<div class="value">
+<span id="downforce">2840</span> N
+</div>
+
+<h3>DRAG</h3>
+<div class="value">
+<span id="drag">1120</span> N
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const slider=document.getElementById("slider");
+const speed=document.getElementById("speed");
+const downforce=document.getElementById("downforce");
+const drag=document.getElementById("drag");
+
+slider.addEventListener("input",function(){
+
+let v=Number(this.value);
+
+speed.textContent=v;
+
+downforce.textContent=
+Math.round(2840*Math.pow(v/250,2));
+
+drag.textContent=
+Math.round(1120*Math.pow(v/250,2));
+
+});
+
+</script>
+
+</body>
+</html>
